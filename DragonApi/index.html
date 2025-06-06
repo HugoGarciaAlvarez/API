@@ -1,36 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DragonBallAPi</title>
+<html lang="es">
 
-    <link rel="stylesheet" href="index.css" />
-    <script src="index.js"></script>
-  </head>
-  <body>
-    <article>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DragonBall API</title>
+  <link rel="stylesheet" href="index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+</head>
 
-      <!--BUSCAR POR ID-->
-      <div class="buscar">
-        <h1>Busca a tu personaje de dragon ball preferido por id</h1>
-        <input type="text" id="numeroDragonBall" placeholder="busca por id" />
+<body>
+  <!-- HEADER DRAGON BALL -->
+  <header>
+    <div class="logo-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Dragon_Ball_Z_logo.svg" alt="Dragon Ball Logo" />
+    </div>
+  </header>
+
+  <main>
+    <!-- BUSCAR POR ID Y LISTAR -->
+    <section class="buscar">
+      <h1>Busca un personaje por ID o selecciona uno de los 10 primeros</h1>
+
+      <div class="acciones">
+        <input type="text" id="numeroDragonBall" placeholder="Ej: 1 a 44" />
         <button id="btnPedir">Mostrar Personaje</button>
+        <button id="btnListar">Cargar Lista</button>
+        <select id="selectorPersonajes">
+          <option value="">Selecciona un personaje</option>
+        </select>
       </div>
+    </section>
 
-      <!--caja del personaje-->
-      <div id="cajaDragonBall">
-        <!--imagen-->
-        <img id="imagenDragonBall" />
-        <!--Informacion-->
-        <div class="info">
-          <div id="infoDragonBall"></div>
-          <div class="descripcion">
-            <div id="descripcionDragonBall"></div>
-          </div>
-        </div>
+    <!-- CAJA DE INFORMACIÓN -->
+    <section id="cajaDragonBall">
+      <img id="imagenDragonBall" />
+      <div class="info">
+        <div id="infoDragonBall"></div>
+        <div class="descripcion" id="descripcionDragonBall"></div>
       </div>
-      <!--FIN DE BUSCAR POR ID-->
-    </article>
-  </body>
+    </section>
+
+    <!-- BUSCAR POR RAZA -->
+    <section class="buscar-raza">
+      <h2>Buscar personajes por raza</h2>
+      <input type="text" id="inputRaza" placeholder="Ej: Saiyan, Human..." />
+      <button id="btnBuscarRaza">Buscar</button>
+      <div id="resultadosRaza"></div>
+    </section>
+  </main>
+  <!-- FOOTER DRAGON BALL -->
+  <footer>
+    <div class="footer-content">
+      <p>Creado por:</p>
+      <ul>
+        <li>Sergio</li>
+        <li>Hugo</li>
+        <li>Alejandro</li>
+      </ul>
+    </div>
+  </footer>
+  <script src="index.js"></script>
+</body>
+
 </html>

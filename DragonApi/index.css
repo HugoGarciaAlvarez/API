@@ -1,48 +1,153 @@
-*{
+* {
     box-sizing: border-box;
-    text-decoration: none;
-}
-body{
+    font-family: 'Russo One', sans-serif;
+  }
+  
+  body {
     margin: 0;
-    padding: 0;
-}
-article{
-    margin: auto;
-}
-.buscar{
-    text-align: center;
-}
-
-
-#cajaDragonBall{
-   
-    margin-top: 50px;
+    background-color: #fce043;
+    background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
+  }
+  
+  header {
+    background-color: #ff5c00;
+    height: 100px;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    align-items: center;
+    border-bottom: 5px solid black;
+  }
   
-}
-#imagenDragonBall{
-    aspect-ratio: 16/9;
-    padding: 5px;
-    width: 300px;
-    height: 450px;
-    border: 1px solid black;
-}
-.info{
-    max-width: 600px;
-    padding: 10px;
-    border: 1px solid black;
-    
-   
-}
-#descripcionDragonBall{
-    text-align: justify;
-}
-
-header{
-    max-width: 100%;
+  .logo-container img {
     height: 80px;
-    background-color: orange;
+  }
+  
+  main {
+    max-width: 1000px;
 
-}
+    padding: 20px;
+    margin: 100px auto;
+  }
+  
+  h1, h2 {
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px #ffd700;
+  }
+  
+  /* SECCIÓN DE ACCIONES */
+  .buscar,
+  .buscar-raza {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .acciones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .acciones input,
+  .acciones button,
+  .acciones select {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid black;
+  }
+  
+  /* BOTONES */
+  button {
+    background-color: #000;
+    color: #ffcc00;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    background-color: #ffcc00;
+    color: #000;
+  }
+  
+  /* SELECT */
+  select {
+    font-size: 16px;
+  }
+  
+  /* CAJA DEL PERSONAJE */
+  #cajaDragonBall {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  #imagenDragonBall {
+   width: 25%;
+    object-fit: cover;
+    border: 5px solid #000;
+    background-color: white;
+    
+  }
+  
+  .info {
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border: 3px solid black;
+    border-radius: 10px;
+  }
+  
+  .descripcion {
+    margin-top: 10px;
+    text-align: justify;
+  }
+  
+  /* RESULTADOS POR RAZA */
+  #resultadosRaza {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+  }
+  footer {
+    background-color: #ff5c00;
+    color: black;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    padding-bottom: 100px;
+    border-top: 5px solid black;
+  }
+  
+  .footer-content p {
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px #ffd700;
+    margin: 0;
+  }
+  
+  .footer-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  .footer-content li {
+    font-size: 16px;
+    text-shadow: 1px 1px #fff;
+  }
+  
+  
+  

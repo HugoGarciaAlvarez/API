@@ -1,74 +1,95 @@
-window.addEventListener('DOMContentLoaded', function(){
-    //Obtenemos los elementos del DOM
-    let btnPeticion = this.document.getElementById('btnPedir');
-    let inputDragonBall = this.document.getElementById('numeroDragonBall');
-    let imgDragonBall = this.document.getElementById('imagenDragonBall');
-    let divInfo = this.document.getElementById('infoDragonBall');
-    let descripcionPersonaje = this.document.getElementById('descripcionDragonBall');
-
-    btnPeticion.addEventListener('click', pedirDragonBall );
-    
-
-
-    function pedirDragonBall (){
-        
-        let nombreDragonBall = inputDragonBall.value.toLowerCase();
-
-        fetch("https://dragonball-api.com/api/characters/" + nombreDragonBall)
-            .then(res =>{
-                console.log(res.status)
-                if(!res.ok){
-                    throw new Error("Personaje no encontrado no encontrado");
-                }
-
-                return res.json();
-            })
-            .then(data => {
-                console.log(data);
-                mostrarData(data);
-
-
-            })
-            .catch(error => {
-                imgDragonBall = "";
-                divInfo.innerHTML = "";
-                descripcionPersonaje.innerHTML = "";
-                console.log(error.mesage)
-            })
-
+window.addEventListener('DOMContentLoaded', function () {
+    const btnPedir = document.getElementById('btnPedir');
+    const inputDragonBall = document.getElementById('numeroDragonBall');
+    const imgDragonBall = document.getElementById('imagenDragonBall');
+    const divInfo = document.getElementById('infoDragonBall');
+    const descripcion = document.getElementById('descripcionDragonBall');
+  
+    const btnListar = document.getElementById('btnListar');
+    const selector = document.getElementById('selectorPersonajes');
+  
+    const btnBuscarRaza = document.getElementById('btnBuscarRaza');
+    const inputRaza = document.getElementById('inputRaza');
+    const resultadosRaza = document.getElementById('resultadosRaza');
+  
+    // Buscar por ID
+    btnPedir.addEventListener('click', () => {
+      const id = inputDragonBall.value.trim();
+      if (id) {
+        fetch(`https://dragonball-api.com/api/characters/${id}`)
+          .then(res => {
+            if (!res.ok) throw new Error('No encontrado');
+            return res.json();
+          })
+          .then(data => mostrarPersonaje(data))
+          .catch(err => {
+            limpiarVista();
+            console.error(err.message);
+          });
+      }
+    });
+  
+    function mostrarPersonaje(data) {
+      imgDragonBall.src = data.image;
+      divInfo.innerHTML = `
+        <p><strong>Nombre:</strong> ${data.name}</p>
+        <p><strong>Raza:</strong> ${data.race}</p>
+        <p><strong>Género:</strong> ${data.gender}</p>
+        <p><strong>Ki:</strong> ${data.ki} / ${data.maxKi}</p>
+      `;
+      descripcion.innerHTML = `<p><strong>Descripción:</strong> ${data.description}</p>`;
     }
-   function mostrarData(data) {
-    // Obtener la URL de la imagen del personaje
-    let urlImagen = data.image;
-    imgDragonBall.src = urlImagen;
-
-    // Formatear datos
-    let nombre = data.name.toUpperCase();
-    let ki = data.ki;
-    let maxKi = data.maxKi;
-    let raza = data.race;
-    let gender = data.gender;
-    let description = data.description;
-
-
-    // Mostrar en el div con formato similar al de Pokémon
-    divInfo.innerHTML =
-        "<p><strong>Nombre</strong>: " + nombre + "</p>" +
-        "<p><strong>Raza</strong>: " + raza + "</p>" +
-        "<p><strong>Ki</strong>: " + ki + "</p>"+
-         "<p><strong>Ki maximo</strong>: " + maxKi + "</p>"+
-          "<p><strong>Genero </strong>: " + gender + "</p>" ;
-    descripcionPersonaje.innerHTML = 
-        "<p><strong>Descripcion</strong>: " + description + "</p>";
-}
-    
- function mostrarTodosLosPersonajes(){
-    fetch("https://dragonball-api.com/api/characters")
- }   
-
-
-
-
-
-
-})
+  
+    function limpiarVista() {
+      imgDragonBall.src = "";
+      divInfo.innerHTML = "";
+      descripcion.innerHTML = "";
+    }
+  
+    // Listar primeros 10
+    btnListar.addEventListener('click', () => {
+      fetch("https://dragonball-api.com/api/characters?limit=10")
+        .then(res => res.json())
+        .then(data => {
+          selector.innerHTML = `<option value="">Selecciona un personaje</option>`;
+          data.items.forEach(p => {
+            const option = document.createElement('option');
+            option.value = p.id;
+            option.textContent = p.name;
+            selector.appendChild(option);
+          });
+        });
+    });
+  
+    selector.addEventListener('change', () => {
+      const id = selector.value;
+      if (id) {
+        fetch(`https://dragonball-api.com/api/characters/${id}`)
+          .then(res => res.json())
+          .then(data => mostrarPersonaje(data));
+      }
+    });
+  
+    // Buscar por raza
+    btnBuscarRaza.addEventListener('click', () => {
+      const razaBuscada = inputRaza.value.toLowerCase();
+      if (!razaBuscada) return;
+  
+      fetch(`https://dragonball-api.com/api/characters?limit=150`)
+        .then(res => res.json())
+        .then(data => {
+          const filtrados = data.items.filter(p => 
+            p.race && p.race.toLowerCase().includes(razaBuscada)
+          );
+  
+          if (filtrados.length === 0) {
+            resultadosRaza.innerHTML = "<p>No se encontraron personajes con esa raza.</p>";
+          } else {
+            resultadosRaza.innerHTML = filtrados.map(p => `
+              <p><strong>${p.name}</strong> - ${p.race}</p>
+            `).join("");
+          }
+        });
+    });
+  });
+  
